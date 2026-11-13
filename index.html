@@ -1,0 +1,2392 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 14971 Risk Management Master - Biosensors Interventional Technologies</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b1329;
+            background-image: radial-gradient(circle at 15% 15%, rgba(0, 168, 204, 0.08) 0%, transparent 45%),
+                              radial-gradient(circle at 85% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 45%);
+            color: #f8fafc;
+        }
+        .gradient-teal {
+            background: linear-gradient(135deg, #00a8cc 0%, #0284c7 100%);
+        }
+        .card-blur {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .risk-high {
+            background-color: rgba(225, 29, 72, 0.88);
+            color: #ffffff;
+        }
+        .risk-moderate {
+            background-color: rgba(234, 179, 8, 0.88);
+            color: #0f172a;
+        }
+        .risk-low {
+            background-color: rgba(34, 197, 94, 0.88);
+            color: #0f172a;
+        }
+
+
+        /* Tactile Animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-7px); }
+            40% { transform: translateX(7px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+        .animate-shake {
+            animation: shake 0.35s ease-in-out;
+        }
+
+
+        @keyframes popIn {
+            0% { transform: scale(0.92); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop {
+            animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.9); opacity: 1; }
+            100% { transform: translateY(-48px) scale(1.1); opacity: 0; }
+        }
+        .xp-floater {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-weight: 800;
+            animation: floatUp 1.1s ease-out forwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+
+        .matrix-cell-btn {
+            transition: all 0.15s ease;
+        }
+        .matrix-cell-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 0 2px #38bdf8, 0 4px 12px rgba(56, 189, 248, 0.4);
+            z-index: 10;
+        }
+        .matrix-cell-selected {
+            box-shadow: 0 0 0 3px #ffffff, 0 0 18px rgba(56, 189, 248, 0.9) !important;
+            transform: scale(1.05);
+            z-index: 20;
+        }
+
+
+        /* Print Specific Styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            body * {
+                visibility: hidden;
+            }
+            #printable-certificate-wrapper, #printable-certificate-wrapper * {
+                visibility: visible;
+            }
+            #printable-certificate-wrapper {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                background: white !important;
+                padding: 0;
+                margin: 0;
+                z-index: 99999;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none no-print"></div>
+
+
+    <!-- Header / Branding Bar -->
+    <header class="border-b border-slate-800 bg-slate-900/95 backdrop-blur-md sticky top-0 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl gradient-teal flex items-center justify-center shadow-lg shadow-cyan-500/20 shrink-0">
+                    <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg text-white leading-tight">Biosensors Interventional Technologies Pte Ltd</h1>
+                    <p class="text-xs text-cyan-400 font-medium tracking-wide flex items-center gap-1.5">
+                        <span>ISO 14971:2019</span>
+                        <span class="text-slate-600">•</span>
+                        <span>Drug Coated Stent</span>
+                        <span class="hidden md:inline text-slate-600">•</span>
+                        <span id="header-rank-badge" class="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 text-[11px] font-semibold">
+                            Rank: Junior QRA Trainee
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- Stats, Streak & Controls -->
+            <div class="flex items-center flex-wrap gap-2 sm:gap-3">
+                <!-- Watch Intro Video Button -->
+                <button onclick="openPromoVideo()" class="p-2 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 transition flex items-center gap-1.5 text-xs font-semibold" title="Watch QRA Day Game Briefing Video">
+                    <i data-lucide="play-circle" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Game Briefing</span>
+                </button>
+
+
+                <!-- Streak Pill -->
+                <div id="streak-pill" class="hidden items-center space-x-1.5 bg-orange-500/15 px-3 py-1.5 rounded-lg border border-orange-500/40">
+                    <span class="text-sm">🔥</span>
+                    <span id="header-streak" class="text-xs font-extrabold text-orange-300">2x Streak</span>
+                </div>
+
+
+                <!-- XP Pill -->
+                <div class="flex items-center space-x-2 bg-slate-800/90 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i data-lucide="award" class="text-amber-400 w-4 h-4"></i>
+                    <span class="text-xs text-slate-400 hidden sm:inline">XP:</span>
+                    <span id="header-score" class="text-sm font-extrabold text-amber-400">0 XP</span>
+                </div>
+
+
+                <!-- Badges Button -->
+                <button onclick="toggleBadgesModal()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 transition flex items-center gap-1.5 text-xs font-semibold" title="View Unlocked Badges">
+                    <i data-lucide="trophy" class="w-4 h-4"></i>
+                    <span id="badge-count-text">0/6</span>
+                </button>
+
+
+                <!-- Sound Toggle -->
+                <button onclick="toggleAudio()" id="btn-audio-toggle" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-400 transition flex items-center gap-1.5 text-xs font-semibold" title="Toggle Sound Effects">
+                    <i data-lucide="volume-2" id="icon-audio" class="w-4 h-4"></i>
+                    <span id="text-audio" class="hidden lg:inline">Sound ON</span>
+                </button>
+
+
+                <!-- Reset / New Player -->
+                <button onclick="resetAllProgress()" class="p-2 rounded-xl bg-slate-800 hover:bg-rose-950/60 border border-slate-700 hover:border-rose-500/40 text-slate-300 hover:text-rose-300 transition flex items-center gap-1.5 text-xs font-semibold" title="Reset Progress for New Player">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    <span class="hidden lg:inline">New Player</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Badges Modal -->
+    <div id="badges-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="card-blur rounded-2xl max-w-xl w-full p-6 border border-slate-700 shadow-2xl animate-pop">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="trophy" class="text-amber-400 w-5 h-5"></i>
+                    <h3 class="text-lg font-bold text-white">QRA Day 2026 Achievement Badges</h3>
+                </div>
+                <button onclick="toggleBadgesModal()" class="text-slate-400 hover:text-white p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div id="badges-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+        </div>
+    </div>
+
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+
+        <!-- Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6 bg-slate-900/70 p-1.5 rounded-xl border border-slate-800 w-full lg:w-fit no-print">
+            <button onclick="switchTab('hub')" id="tab-hub" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-cyan-600 text-white shadow-lg">
+                <i data-lucide="book-open" class="w-4 h-4"></i> Reference Hub
+            </button>
+            <button onclick="switchTab('matcher')" id="tab-matcher" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i data-lucide="git-merge" class="w-4 h-4"></i> 1. Risk Flow Chain
+                <span id="status-dot-matcher" class="w-2 h-2 rounded-full bg-slate-600"></span>
+            </button>
+            <button onclick="switchTab('assessment')" id="tab-assessment" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i data-lucide="grid" class="w-4 h-4"></i> 2. Matrix Simulator
+                <span id="status-dot-assessment" class="w-2 h-2 rounded-full bg-slate-600"></span>
+            </button>
+            <button onclick="switchTab('audit')" id="tab-audit" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i data-lucide="shield-alert" class="w-4 h-4"></i> 3. Audit Defense
+                <span id="status-dot-audit" class="w-2 h-2 rounded-full bg-slate-600"></span>
+            </button>
+            <button onclick="switchTab('blitz')" id="tab-blitz" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-amber-300 hover:text-white hover:bg-slate-800">
+                <i data-lucide="zap" class="w-4 h-4"></i> 4. 60s QRA Blitz
+            </button>
+            <button onclick="switchTab('process-map')" id="tab-process-map" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i data-lucide="workflow" class="w-4 h-4"></i> Lifecycle Map
+            </button>
+            <button onclick="switchTab('certificate')" id="tab-certificate" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i data-lucide="award" class="w-4 h-4"></i> Certificate
+            </button>
+        </div>
+
+
+        <!-- SECTION 1: ISO 14971 LEARNING HUB -->
+        <div id="section-hub" class="tab-content space-y-6">
+            <!-- Hero Banner + Embedded Video Briefing Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Hero Banner (7 cols) -->
+                <div class="lg:col-span-7 relative overflow-hidden rounded-2xl gradient-teal p-6 sm:p-8 shadow-2xl flex flex-col justify-between">
+                    <div class="relative z-10">
+                        <span class="bg-white/20 text-white text-xs px-3 py-1 rounded-full font-semibold tracking-wide uppercase">QRA Day 2026 Interactive Challenge</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-3">ISO 14971:2019 Risk Management Master</h2>
+                        <p class="text-cyan-50 mt-2 text-sm leading-relaxed">
+                            Test your regulatory instincts for <strong>Biosensors Interventional Technologies Pte Ltd</strong>. Build valid FMEA chains, plot live risk reductions on the evaluation matrix, survive a Notified Body audit, and race the clock in the 60-second QRA Blitz for <strong>Drug Coated Stents</strong>.
+                        </p>
+                    </div>
+                    <div class="relative z-10 mt-6 flex flex-wrap gap-3">
+                        <button onclick="switchTab('matcher');" class="bg-white text-cyan-950 hover:bg-cyan-50 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg flex items-center gap-2">
+                            Start Mission 1: Risk Flow Chain <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="switchTab('blitz');" class="bg-slate-950/40 hover:bg-slate-950/60 text-white border border-white/30 font-bold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+                            <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i> Jump to 60s Blitz
+                        </button>
+                    </div>
+                    <i data-lucide="activity" class="absolute -right-8 -bottom-8 w-64 h-64 text-white/10 pointer-events-none"></i>
+                </div>
+
+
+                <!-- Promotional Video Showcase Card (5 cols) -->
+                <div id="promo-video-card" class="lg:col-span-5 card-blur rounded-2xl border border-cyan-500/30 p-4 sm:p-5 flex flex-col justify-between shadow-2xl">
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                            <h3 class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">QRA Day 2026 Game Briefing</h3>
+                        </div>
+                        <label for="local-video-input" class="cursor-pointer text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition flex items-center gap-1" title="Load downloaded .mp4 video file">
+                            <i data-lucide="upload" class="w-3 h-3"></i>
+                            <span>Load .MP4</span>
+                        </label>
+                        <input type="file" id="local-video-input" accept="video/*" onchange="handleLocalVideoUpload(event)" class="hidden">
+                    </div>
+
+
+                    <!-- 16:9 Responsive Video Wrapper -->
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner">
+                        <video id="promo-video-player" class="w-full h-full object-cover" controls playsinline preload="metadata" onerror="showVideoFallback()">
+                            <source src="qra-day-promo.mp4" type="video/mp4">
+                            Your browser does not support HTML5 video playback.
+                        </video>
+
+
+                        <!-- Helpful Fallback Overlay if local qra-day-promo.mp4 isn't in folder yet -->
+                        <div id="video-fallback-overlay" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-sm p-4 flex flex-col items-center justify-center text-center space-y-2.5">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30">
+                                <i data-lucide="film" class="w-5 h-5"></i>
+                            </div>
+                            <p class="text-xs font-bold text-white">Attach Your Promotional Video</p>
+                            <p class="text-[11px] text-slate-400 leading-snug max-w-xs">
+                                Save your downloaded video as <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">qra-day-promo.mp4</code> in the same folder, or select it now:
+                            </p>
+                            <button type="button" onclick="document.getElementById('local-video-input').click()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-4 py-1.5 rounded-lg text-xs transition shadow inline-flex items-center gap-1.5">
+                                <i data-lucide="folder-open" class="w-3.5 h-3.5"></i> Select Downloaded .MP4
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <p id="video-status-caption" class="text-[11px] text-slate-400 mt-2.5 flex items-center justify-between">
+                        <span>Meet your QRA Day guide & explore all 4 missions.</span>
+                        <span class="text-cyan-400 font-semibold">ISO 14971:2019</span>
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- Risk Evaluation Matrix Grid Reference -->
+            <div class="card-blur p-6 rounded-xl border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <h3 class="text-md font-bold text-white flex items-center gap-2">
+                        <i data-lucide="grid" class="text-cyan-400 w-5 h-5"></i> Risk Evaluation Level Matrix (Reference)
+                    </h3>
+                    <span class="text-xs text-slate-400">Study this grid before entering Mode 2: Matrix Simulator</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center text-xs font-semibold border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-slate-300">
+                                <th rowspan="2" class="p-3 border border-slate-700 text-left">OCCURRENCE</th>
+                                <th colspan="4" class="p-2 border border-slate-700 uppercase tracking-wider">SEVERITY</th>
+                            </tr>
+                            <tr class="bg-slate-800/80 text-slate-300">
+                                <th class="p-2 border border-slate-700">NEGLIGIBLE (1)</th>
+                                <th class="p-2 border border-slate-700">MINOR (2)</th>
+                                <th class="p-2 border border-slate-700">MAJOR (3)</th>
+                                <th class="p-2 border border-slate-700">CRITICAL (4)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2.5 border border-slate-700 bg-slate-800 text-left text-slate-300">FREQUENT (5) (&ge; 10%)</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                                <td class="p-3 border border-slate-700 risk-high">High</td>
+                                <td class="p-3 border border-slate-700 risk-high">High</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 border border-slate-700 bg-slate-800 text-left text-slate-300">PROBABLE (4) (1% - &lt;10%)</td>
+                                <td class="p-3 border border-slate-700 risk-low">Low</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                                <td class="p-3 border border-slate-700 risk-high">High</td>
+                                <td class="p-3 border border-slate-700 risk-high">High</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 border border-slate-700 bg-slate-800 text-left text-slate-300">OCCASIONAL (3) (0.01% - &lt;1%)</td>
+                                <td class="p-3 border border-slate-700 risk-low">Low</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                                <td class="p-3 border border-slate-700 risk-high">High</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 border border-slate-700 bg-slate-800 text-left text-slate-300">REMOTE (2) (0.001% - &lt;0.01%)</td>
+                                <td class="p-3 border border-slate-700 risk-low">Low</td>
+                                <td class="p-3 border border-slate-700 risk-low">Low</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 border border-slate-700 bg-slate-800 text-left text-slate-300">IMPROBABLE (1) (&lt; 0.001%)</td>
+                                <td class="p-3 border border-slate-700 risk-low">Low</td>
+                                <td class="p-3 border border-slate-700 risk-low">Low</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                                <td class="p-3 border border-slate-700 risk-moderate">Moderate</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <!-- ISO 14971 Definitions Searchable Grid -->
+            <div class="card-blur p-6 rounded-xl border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <h3 class="text-md font-bold text-white flex items-center gap-2">
+                        <i data-lucide="book" class="text-cyan-400 w-5 h-5"></i> Key ISO 14971:2019 Regulatory Definitions
+                    </h3>
+                    <div class="relative w-full sm:w-64">
+                        <input type="text" id="def-search" oninput="filterDefinitions()" placeholder="Filter terms (e.g., Harm, RMF)..." class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-3 pr-8 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-500">
+                        <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2"></i>
+                    </div>
+                </div>
+                <div id="definitions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+            </div>
+        </div>
+
+
+        <!-- SECTION: CONTINUOUS RISK MANAGEMENT PROCESS MAP -->
+        <section id="section-process-map" class="tab-content space-y-6 hidden">
+            <div class="card-blur p-6 rounded-2xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                            Continuous Risk Management Lifecycle
+                        </h2>
+                        <p class="text-sm text-slate-400">ISO 14971:2019 describes an iterative risk management process extending from design and development through post-production activities.</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono bg-slate-900 px-3 py-2 rounded-lg border border-slate-800">
+                        <span class="w-3 h-3 rounded-full bg-teal-400 animate-pulse"></span>
+                        Status: Iterative Lifecycle Active
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                    <div onclick="selectStep(1)" id="step-card-1" role="button" tabindex="0" class="step-card cursor-pointer card-blur hover:border-teal-500/50 p-5 rounded-xl border-l-4 border-l-teal-500 transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-mono text-teal-400 font-semibold px-2 py-0.5 rounded bg-teal-500/10">STEP 01 (Clause 4.4)</span>
+                            <i data-lucide="list-checks" class="text-slate-500 w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Risk Management Planning</h3>
+                        <p class="text-xs text-slate-400 mt-1">Define scope, policy, criteria and the risk management plan.</p>
+                    </div>
+                    <div onclick="selectStep(2)" id="step-card-2" role="button" tabindex="0" class="step-card cursor-pointer card-blur hover:border-teal-500/50 p-5 rounded-xl border-l-4 border-l-slate-700 transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-mono text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-800">STEP 02 (Clause 5)</span>
+                            <i data-lucide="search" class="text-slate-500 w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Risk Analysis</h3>
+                        <p class="text-xs text-slate-400 mt-1">Identify hazards and hazardous situations; estimate risk.</p>
+                    </div>
+                    <div onclick="selectStep(3)" id="step-card-3" role="button" tabindex="0" class="step-card cursor-pointer card-blur hover:border-teal-500/50 p-5 rounded-xl border-l-4 border-l-slate-700 transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-mono text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-800">STEP 03 (Clause 6)</span>
+                            <i data-lucide="scale" class="text-slate-500 w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Risk Evaluation</h3>
+                        <p class="text-xs text-slate-400 mt-1">Compare estimated risks against defined acceptability criteria.</p>
+                    </div>
+                    <div onclick="selectStep(4)" id="step-card-4" role="button" tabindex="0" class="step-card cursor-pointer card-blur hover:border-teal-500/50 p-5 rounded-xl border-l-4 border-l-slate-700 transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-mono text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-800">STEP 04 (Clause 7)</span>
+                            <i data-lucide="shield-check" class="text-slate-500 w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Risk Control</h3>
+                        <p class="text-xs text-slate-400 mt-1">Select, implement and verify appropriate risk control measures.</p>
+                    </div>
+                    <div onclick="selectStep(5)" id="step-card-5" role="button" tabindex="0" class="step-card cursor-pointer card-blur hover:border-teal-500/50 p-5 rounded-xl border-l-4 border-l-slate-700 transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-mono text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-800">STEP 05 (Clause 8)</span>
+                            <i data-lucide="chart-pie" class="text-slate-500 w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Residual Risk & Benefit Review</h3>
+                        <p class="text-xs text-slate-400 mt-1">Evaluate residual risks and overall residual risk acceptability.</p>
+                    </div>
+                    <div onclick="selectStep(6)" id="step-card-6" role="button" tabindex="0" class="step-card cursor-pointer card-blur hover:border-teal-500/50 p-5 rounded-xl border-l-4 border-l-slate-700 transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-mono text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-800">STEP 06 (Clauses 9 & 10)</span>
+                            <i data-lucide="refresh-cw" class="text-slate-500 w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-base">RMF Report & Post-Market</h3>
+                        <p class="text-xs text-slate-400 mt-1">Review production and post-production information and feed it back into risk management.</p>
+                    </div>
+                </div>
+                <div id="step-detail-container" class="bg-slate-950/80 rounded-xl p-6 border border-slate-800" aria-live="polite"></div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: GAME MODE 1 - RISK FLOW CHAIN BUILDER -->
+        <div id="section-matcher" class="tab-content space-y-6 hidden">
+            <div class="card-blur p-6 rounded-xl border border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-5">
+                    <div>
+                        <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider">Mission 1 • FMEA Sequence Builder</span>
+                        <h2 class="text-xl font-bold text-white">Risk Sequence & Control Chain Builder</h2>
+                        <p class="text-xs text-slate-400">Drag a card onto the matching stage—or click a card and click the target slot. Beware of 4 distractor cards!</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="matcher-progress" class="text-xs bg-slate-800 text-cyan-300 px-3 py-1.5 rounded-lg border border-slate-700 font-semibold">Line 1 of 5</span>
+                    </div>
+                </div>
+
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-800 h-1.5 rounded-full mb-6 overflow-hidden">
+                    <div id="matcher-bar" class="bg-cyan-400 h-full transition-all duration-300" style="width: 20%"></div>
+                </div>
+
+
+                <!-- Current Item Focus Header -->
+                <div class="bg-slate-800/90 p-4 rounded-xl border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                    <div>
+                        <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Target Line Component:</span>
+                        <h3 id="matcher-item-name" class="text-lg font-bold text-cyan-300">Drug Coated Stent</h3>
+                        <p id="matcher-item-func" class="text-xs text-slate-300 mt-0.5">Function: Improve coronary luminal diameter.</p>
+                    </div>
+                    <div class="text-xs bg-slate-900/90 px-3 py-2 rounded-lg border border-slate-700 text-slate-300">
+                        <span class="text-cyan-400 font-semibold">Tip:</span> Distinguish the <em>Hazard</em> (device condition) from the <em>Hazardous Situation</em> (patient exposure).
+                    </div>
+                </div>
+
+
+                <!-- 4 Causal Chain Slots -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
+                    <div class="flex flex-col">
+                        <span class="text-xs text-slate-300 mb-1.5 font-semibold flex items-center justify-between">
+                            <span>1. Failure Mode / Hazard</span>
+                            <span class="text-[10px] text-cyan-400">Source</span>
+                        </span>
+                        <div id="slot-hazard"
+                             ondragover="allowDrop(event)"
+                             ondrop="dropOnSlot(event, 'hazard')"
+                             onclick="handleSlotClick('hazard')"
+                             class="slot-target min-h-[104px] border-2 border-dashed border-slate-700 bg-slate-900/60 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer hover:border-cyan-500/60 transition">
+                            <span class="text-xs text-slate-500 pointer-events-none">Drop or Click to Assign Hazard</span>
+                        </div>
+                    </div>
+
+
+                    <div class="flex flex-col">
+                        <span class="text-xs text-slate-300 mb-1.5 font-semibold flex items-center justify-between">
+                            <span>2. Hazardous Situation</span>
+                            <span class="text-[10px] text-amber-400">Exposure</span>
+                        </span>
+                        <div id="slot-situation"
+                             ondragover="allowDrop(event)"
+                             ondrop="dropOnSlot(event, 'situation')"
+                             onclick="handleSlotClick('situation')"
+                             class="slot-target min-h-[104px] border-2 border-dashed border-slate-700 bg-slate-900/60 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer hover:border-cyan-500/60 transition">
+                            <span class="text-xs text-slate-500 pointer-events-none">Drop or Click to Assign Situation</span>
+                        </div>
+                    </div>
+
+
+                    <div class="flex flex-col">
+                        <span class="text-xs text-slate-300 mb-1.5 font-semibold flex items-center justify-between">
+                            <span>3. Potential Harm</span>
+                            <span class="text-[10px] text-rose-400">Clinical Impact</span>
+                        </span>
+                        <div id="slot-harm"
+                             ondragover="allowDrop(event)"
+                             ondrop="dropOnSlot(event, 'harm')"
+                             onclick="handleSlotClick('harm')"
+                             class="slot-target min-h-[104px] border-2 border-dashed border-slate-700 bg-slate-900/60 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer hover:border-cyan-500/60 transition">
+                            <span class="text-xs text-slate-500 pointer-events-none">Drop or Click to Assign Harm</span>
+                        </div>
+                    </div>
+
+
+                    <div class="flex flex-col">
+                        <span class="text-xs text-slate-300 mb-1.5 font-semibold flex items-center justify-between">
+                            <span>4. Risk Control Measure</span>
+                            <span class="text-[10px] text-emerald-400">Mitigation</span>
+                        </span>
+                        <div id="slot-control"
+                             ondragover="allowDrop(event)"
+                             ondrop="dropOnSlot(event, 'control')"
+                             onclick="handleSlotClick('control')"
+                             class="slot-target min-h-[104px] border-2 border-dashed border-slate-700 bg-slate-900/60 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer hover:border-cyan-500/60 transition">
+                            <span class="text-xs text-slate-500 pointer-events-none">Drop or Click to Assign Control</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Option Selection Bank -->
+                <div class="bg-slate-900/90 p-5 rounded-xl border border-slate-800 mb-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Evidence Card Bank (4 Valid + 4 Distractors)</h4>
+                        <span id="selected-card-indicator" class="text-xs text-cyan-400 font-medium hidden">Card selected — now click a slot above!</span>
+                    </div>
+                    <div id="options-bank" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5"></div>
+                </div>
+
+
+                <!-- Submit & Action Controls -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                    <button onclick="resetMatcherCurrent(); playSound('click');" class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Clear Slots
+                    </button>
+                    <button id="btn-submit-matcher" onclick="evaluateMatcherStep()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> Validate Risk Chain
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Feedback -->
+            <div id="matcher-feedback" class="hidden p-4 rounded-xl border animate-pop"></div>
+        </div>
+
+
+        <!-- SECTION 3: GAME MODE 2 - INTERACTIVE RISK MATRIX SIMULATOR -->
+        <div id="section-assessment" class="tab-content space-y-6 hidden">
+            <div class="card-blur p-6 rounded-xl border border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-5">
+                    <div>
+                        <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider">Mission 2 • Interactive Risk Matrix</span>
+                        <h2 class="text-xl font-bold text-white">Pre-Control & Residual Risk Matrix Plotter</h2>
+                        <p class="text-xs text-slate-400">Plot the Initial Risk directly on the matrix, then determine the post-control Residual Occurrence and Residual Risk cell.</p>
+                    </div>
+                    <span id="assessment-score-badge" class="text-xs bg-slate-800 text-cyan-300 px-3 py-1.5 rounded-lg border border-slate-700 font-semibold">Line <span id="assess-q-num">1</span> of 5</span>
+                </div>
+
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-800 h-1.5 rounded-full mb-6 overflow-hidden">
+                    <div id="assessment-bar" class="bg-cyan-400 h-full transition-all duration-300" style="width: 20%"></div>
+                </div>
+
+
+                <div id="assessment-card" class="space-y-6"></div>
+            </div>
+        </div>
+
+
+        <!-- SECTION 4: GAME MODE 3 - QA AUDIT SIMULATOR -->
+        <div id="section-audit" class="tab-content space-y-6 hidden">
+            <div class="card-blur p-6 rounded-xl border border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-5">
+                    <div>
+                        <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">Mission 3 • Notified Body Audit Defense</span>
+                        <h2 class="text-xl font-bold text-white">Regulatory Audit Challenge</h2>
+                        <p class="text-xs text-slate-400">Defend your Risk Management File (RMF) before the Lead Auditor. 3 non-conformities will fail the audit!</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div id="audit-shields" class="flex items-center gap-1 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-700" title="Audit Compliance Integrity"></div>
+                        <span id="audit-step-badge" class="text-xs bg-slate-800 text-amber-300 px-3 py-1.5 rounded-lg border border-slate-700 font-semibold">Finding <span id="audit-q-num">1</span> of 6</span>
+                    </div>
+                </div>
+
+
+                <div id="audit-card" class="space-y-6"></div>
+            </div>
+        </div>
+
+
+        <!-- SECTION 5: GAME MODE 4 - 60-SECOND QRA BLITZ -->
+        <div id="section-blitz" class="tab-content space-y-6 hidden">
+            <div class="card-blur p-6 rounded-xl border border-amber-500/30">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                            <i data-lucide="zap" class="w-3.5 h-3.5"></i> Arcade Mode • High-Speed Triage
+                        </span>
+                        <h2 class="text-xl font-bold text-white">60-Second QRA Rapid Blitz</h2>
+                        <p class="text-xs text-slate-400">Classify as many ISO 14971 scenarios as possible in 60 seconds! Build streaks for up to <strong>4x Multiplier</strong>.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-700 text-xs">
+                            <span class="text-slate-400">Best Run:</span>
+                            <strong id="blitz-best-score" class="text-amber-400 ml-1">0 XP</strong>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Blitz Arena -->
+                <div id="blitz-arena" class="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 text-center">
+                    <div class="max-w-md mx-auto py-6 space-y-4">
+                        <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center justify-center mx-auto">
+                            <i data-lucide="timer" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white">Ready for Rapid Risk Triage?</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            You have <strong>60 seconds</strong>. Each prompt presents a medical device statement or control measure—click the matching ISO 14971 classification before the clock hits zero!
+                        </p>
+                        <button onclick="startBlitzGame()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-8 py-3 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 inline-flex items-center gap-2">
+                            <i data-lucide="play" class="w-4 h-4"></i> Launch 60s Blitz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- SECTION 6: CERTIFICATE GENERATOR -->
+        <div id="section-certificate" class="tab-content space-y-6 hidden">
+            <div class="card-blur p-8 rounded-2xl border border-slate-800 text-center max-w-3xl mx-auto no-print">
+                <div class="w-16 h-16 rounded-2xl gradient-teal mx-auto flex items-center justify-center shadow-xl mb-4">
+                    <i data-lucide="award" class="text-white w-8 h-8"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white">ISO 14971 Qualification Certificate</h2>
+                <p class="text-xs text-slate-400 mt-1">Biosensors Interventional Technologies Pte Ltd • QRA Day 2026</p>
+
+
+                <div class="my-6 p-4 bg-slate-900/80 rounded-xl border border-slate-800 inline-block text-left w-full max-w-md">
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Trainee Full Name:</label>
+                    <input type="text" id="trainee-name" value="Quality Assurance Engineer" oninput="updateCertName()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500">
+                    <div class="mt-3 flex justify-between items-center text-xs text-slate-400">
+                        <span>Current XP: <strong id="cert-score-text" class="text-cyan-400">0 XP</strong></span>
+                        <span>Unlock Threshold: <strong class="text-amber-400">500+ XP</strong></span>
+                    </div>
+                </div>
+
+
+                <div id="cert-status-msg" class="text-sm font-medium text-amber-400 mb-6">
+                    Earn at least 500 XP across the missions to unlock your official ISO 14971 certificate!
+                </div>
+
+
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button id="btn-print-cert" onclick="triggerPrintCertificate()" disabled class="bg-slate-800 text-slate-500 font-bold px-8 py-3 rounded-xl text-sm transition shadow cursor-not-allowed flex items-center gap-2">
+                        <i data-lucide="printer" class="w-4 h-4"></i> Print ISO 14971 Certificate
+                    </button>
+                    <button id="btn-window-cert" onclick="openCertificateWindow()" disabled class="bg-slate-800 text-slate-500 font-bold px-6 py-3 rounded-xl text-sm transition shadow cursor-not-allowed flex items-center gap-2">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Open Clean Print Window
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- PRINTABLE CERTIFICATE TEMPLATE CONTAINER -->
+            <div id="printable-certificate-wrapper" class="flex justify-center items-center py-4">
+                <div id="printable-certificate" class="bg-white text-slate-900 p-8 sm:p-10 rounded-2xl border-8 border-cyan-800 max-w-3xl w-full shadow-2xl relative">
+                    <div class="border-2 border-slate-300 p-6 sm:p-8 text-center relative">
+                        <div class="flex justify-between items-center border-b pb-4 mb-6">
+                            <div class="text-left">
+                                <h3 class="font-bold text-base text-cyan-900 uppercase tracking-wider">Biosensors Interventional Technologies Pte Ltd</h3>
+                                <p class="text-[11px] text-slate-500">Quality Assurance & Regulatory Affairs Department</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] font-mono text-slate-500 block">CERT-QRA DAY 2026</span>
+                                <span id="cert-rank-display" class="text-[10px] font-bold text-cyan-700 uppercase">Junior QRA Trainee</span>
+                            </div>
+                        </div>
+
+
+                        <span class="text-xs font-semibold text-cyan-600 uppercase tracking-widest">Certificate of Training Completion</span>
+                        <h2 class="text-2xl font-extrabold text-slate-800 mt-2">ISO 14971:2019 Risk Management Master</h2>
+                        <p class="text-xs text-slate-600 mt-1">Medical devices — Application of risk management to medical devices</p>
+
+
+                        <p class="text-xs text-slate-500 mt-5">This hereby certifies that</p>
+                        <h3 id="cert-display-name" class="text-xl font-bold text-cyan-950 my-2 underline decoration-cyan-500">Quality Assurance Engineer</h3>
+                        <p class="text-[11px] text-slate-600 max-w-md mx-auto leading-relaxed">
+                            has successfully completed evaluation for ISO 14971 risk management, failure modes hazard analysis, severity/occurrence matrix estimation, and verification protocol mapping for <strong>Drug Coated Stent Systems</strong>.
+                        </p>
+
+
+                        <div class="mt-4 inline-flex items-center gap-4 px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-semibold text-slate-700">
+                            <span>Final Score: <strong id="cert-final-xp" class="text-cyan-800">0 XP</strong></span>
+                            <span>•</span>
+                            <span>Badges Earned: <strong id="cert-final-badges" class="text-cyan-800">0 / 6</strong></span>
+                        </div>
+
+
+                        <div class="grid grid-cols-2 gap-8 mt-6 pt-4 border-t border-slate-200">
+                            <div class="text-left">
+                                <p class="text-[11px] font-semibold text-slate-700">Issued By:</p>
+                                <p class="text-[11px] text-slate-500">Quality Assurance Department</p>
+                                <p class="text-[10px] text-slate-400">Biosensors Interventional Technologies</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[11px] font-semibold text-slate-700">Verification Status:</p>
+                                <p id="cert-date" class="text-[11px] text-slate-500">November 13, 2026</p>
+                                <p class="text-[11px] text-emerald-600 font-bold">PASS - ISO 14971 VERIFIED</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer class="border-t border-slate-800 bg-slate-900 py-4 mt-8 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            Biosensors Interventional Technologies Pte Ltd &copy; 2026 | This game is intended solely for entertainment purposes as part of QRA Day 2026 activities
+        </div>
+    </footer>
+
+
+    <!-- JavaScript Engine -->
+    <script>
+        // ==========================================
+        // 1. WEB AUDIO API SYNTHESIZER ENGINE
+        // ==========================================
+        let audioCtx = null;
+        let isAudioMuted = false;
+
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+
+        function toggleAudio() {
+            isAudioMuted = !isAudioMuted;
+            const icon = document.getElementById('icon-audio');
+            const text = document.getElementById('text-audio');
+            if (isAudioMuted) {
+                icon.setAttribute('data-lucide', 'volume-x');
+                text.innerText = "Sound OFF";
+            } else {
+                icon.setAttribute('data-lucide', 'volume-2');
+                text.innerText = "Sound ON";
+                playSound('click');
+            }
+            lucide.createIcons();
+        }
+
+
+        function playSound(type) {
+            if (isAudioMuted) return;
+            initAudioContext();
+            if (!audioCtx) return;
+
+
+            const now = audioCtx.currentTime;
+
+
+            if (type === 'click') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(620, now);
+                osc.frequency.exponentialRampToValueAtTime(320, now + 0.045);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.045);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.045);
+            } else if (type === 'tick') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(880, now);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.005, now + 0.04);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.04);
+            } else if (type === 'correct') {
+                [659.25, 880].forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + (idx * 0.07));
+                    gain.gain.setValueAtTime(0.18, now + (idx * 0.07));
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + (idx * 0.07) + 0.18);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + (idx * 0.07));
+                    osc.stop(now + (idx * 0.07) + 0.18);
+                });
+            } else if (type === 'wrong') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(160, now);
+                osc.frequency.linearRampToValueAtTime(95, now + 0.24);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.24);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.24);
+            } else if (type === 'complete' || type === 'fanfare') {
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + (idx * 0.09));
+                    gain.gain.setValueAtTime(0.22, now + (idx * 0.09));
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + (idx * 0.09) + 0.28);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + (idx * 0.09));
+                    osc.stop(now + (idx * 0.09) + 0.28);
+                });
+            }
+        }
+
+
+        // ==========================================
+        // 1B. PROMOTIONAL VIDEO HANDLERS
+        // ==========================================
+        function showVideoFallback() {
+            const overlay = document.getElementById('video-fallback-overlay');
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                lucide.createIcons();
+            }
+        }
+
+
+        function handleLocalVideoUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const videoPlayer = document.getElementById('promo-video-player');
+            const overlay = document.getElementById('video-fallback-overlay');
+            const caption = document.getElementById('video-status-caption');
+
+
+            const objectUrl = URL.createObjectURL(file);
+            videoPlayer.innerHTML = `<source src="${objectUrl}" type="${file.type || 'video/mp4'}">`;
+            videoPlayer.load();
+            if (overlay) overlay.classList.add('hidden');
+            if (caption) {
+                caption.innerHTML = `<span class="text-emerald-400 font-medium truncate">Loaded: ${file.name}</span><span class="text-cyan-400 font-semibold shrink-0">Ready</span>`;
+            }
+            playSound('correct');
+            videoPlayer.play().catch(() => {});
+        }
+
+
+        function openPromoVideo() {
+            switchTab('hub');
+            const card = document.getElementById('promo-video-card');
+            const player = document.getElementById('promo-video-player');
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.classList.add('ring-2', 'ring-cyan-400');
+                setTimeout(() => card.classList.remove('ring-2', 'ring-cyan-400'), 1400);
+            }
+            if (player && player.readyState >= 2) {
+                player.play().catch(() => {});
+            }
+        }
+
+
+        // ==========================================
+        // 2. DOMAIN DATA (100% PRESERVED + EXPANDED)
+        // ==========================================
+        const isoDefinitions = [
+            { term: "Cause", def: "All possible causes for each failure mode identified and focus on design weakness, misuse, and production processes that could lead to failure." },
+            { term: "Effect", def: "The consequences of the failure mode on the function of the product or process should the failure mode occur." },
+            { term: "Failure Mode / Hazard", def: "The condition or characteristics of the product related to the specific function, component or manufacturing process that could lead to a product failure. It is a potential source of harm." },
+            { term: "Hazardous Situation", def: "Circumstance in which people, property or the environment is/are exposed to one or more hazards." },
+            { term: "Harm", def: "Injury or damage to the health of people or damage to property or the environment." },
+            { term: "Occurrence", def: "The probability that the cause will happen and create the failure mode." },
+            { term: "Residual Risk", def: "Risk remaining after risk control measures have been implemented." },
+            { term: "Risk", def: "Combination of the probability of occurrence of harm and the severity of that harm." },
+            { term: "Risk Analysis", def: "Systematic use of available information to identify hazards and to estimate risk (FMEA, PHA, etc.)." },
+            { term: "Risk Assessment", def: "Overall process comprising a risk analysis and a risk evaluation." },
+            { term: "Risk Control", def: "Process in which decisions are made and measures implemented by which risks are reduced to or maintained within specified levels." },
+            { term: "Risk Management File (RMF)", def: "Set of records and other documents that are produced by risk management." },
+            { term: "Verification", def: "Confirmation by examination and provision of objective evidence that specified requirements have been fulfilled." }
+        ];
+
+
+        const riskTableData = [
+            {
+                line: 1,
+                item: "Drug Coated Stent",
+                func: "Improve coronary luminal diameter.",
+                hazard: "Excessive pyrogens",
+                situation: "Raising body temperature",
+                harm: "Anaphylactic shock (S-4)",
+                cause: "Poor design of product",
+                sevNum: 4,
+                initOccNum: 2,
+                initialSeverity: "S-4 (Critical)",
+                initialOcc: "O-2 (Remote)",
+                initialRisk: "Moderate",
+                control: "Product is designed to be non-pyrogenic.",
+                impVerif: "Sterilization Validation Protocol",
+                effVerif: "Sterilization Validation Report",
+                resOccNum: 1,
+                resOcc: "O-1 (Improbable)",
+                resRisk: "Moderate"
+            },
+            {
+                line: 2,
+                item: "Balloon",
+                func: "The balloon is inflated to dilate the stenosis and to deploy the stent.",
+                hazard: "Balloon pin hole",
+                situation: "Pinhole pressure damages vessel",
+                harm: "Rupture of artery (S-4)",
+                cause: "Poor design of balloon",
+                sevNum: 4,
+                initOccNum: 2,
+                initialSeverity: "S-4 (Critical)",
+                initialOcc: "O-2 (Remote)",
+                initialRisk: "Moderate",
+                control: "Balloon is designed to maintain pressure integrity until Rated Burst Pressure.",
+                impVerif: "Validation Protocol for Stent Design Verification Test (Balloon compliance with stent and balloon burst)",
+                effVerif: "Validation Report for Stent Design Verification Test (Balloon compliance with stent and balloon burst)",
+                resOccNum: 1,
+                resOcc: "O-1 (Improbable)",
+                resRisk: "Moderate"
+            },
+            {
+                line: 3,
+                item: "Stent",
+                func: "Stent is deployed at target site to improve coronary luminal diameter.",
+                hazard: "Stent dislodgement",
+                situation: "Stent dislodged in patient body",
+                harm: "Surgical procedure (S-3)",
+                cause: "Poor design of stent",
+                sevNum: 3,
+                initOccNum: 3,
+                initialSeverity: "S-3 (Major)",
+                initialOcc: "O-3 (Occasional)",
+                initialRisk: "Moderate",
+                control: "Stent is designed not to displace from the balloon during advancement or retraction of the Stent Delivery System.",
+                impVerif: "Validation Protocol for Stent Design Verification Test (Stent retention)",
+                effVerif: "Validation Report for Stent Design Verification Test (Stent retention)",
+                resOccNum: 1,
+                resOcc: "O-1 (Improbable)",
+                resRisk: "Moderate"
+            },
+            {
+                line: 4,
+                item: "Stent protection cover",
+                func: "Stent protection cover is to protect the stent and balloon.",
+                hazard: "Unable to remove stent protection cover",
+                situation: "Abrasion of drug coating with stent protection cover",
+                harm: "Suboptimal results (S-2)",
+                cause: "Poor dimensional design",
+                sevNum: 2,
+                initOccNum: 4,
+                initialSeverity: "S-2 (Minor)",
+                initialOcc: "O-4 (Probable)",
+                initialRisk: "Moderate",
+                control: "Stent protection cover is designed to be larger than the maximum stent crossing profile.",
+                impVerif: "Validation Protocol for Stent Design Verification Test (Insertion and withdrawal)",
+                effVerif: "Validation Report for Stent Design Verification Test (Insertion and withdrawal)",
+                resOccNum: 1,
+                resOcc: "O-1 (Improbable)",
+                resRisk: "Low"
+            },
+            {
+                line: 5,
+                item: "Label",
+                func: "Contain a list of critical information (e.g., stent / balloon size).",
+                hazard: "Label smear",
+                situation: "Incorrect stent / balloon size used",
+                harm: "Delay of procedure (S-1)",
+                cause: "Poor material selection",
+                sevNum: 1,
+                initOccNum: 5,
+                initialSeverity: "S-1 (Negligible)",
+                initialOcc: "O-5 (Frequent)",
+                initialRisk: "Moderate",
+                control: "Printing on the label has to be free of smearing.",
+                impVerif: "Validation Protocol for Label Integrity Verification Test",
+                effVerif: "Validation Report for Label Integrity Verification Test",
+                resOccNum: 1,
+                resOcc: "O-1 (Improbable)",
+                resRisk: "Low"
+            }
+        ];
+
+
+        const matrixLookup = {
+            5: { 1: "Moderate", 2: "Moderate", 3: "High", 4: "High" },
+            4: { 1: "Low", 2: "Moderate", 3: "High", 4: "High" },
+            3: { 1: "Low", 2: "Moderate", 3: "Moderate", 4: "High" },
+            2: { 1: "Low", 2: "Low", 3: "Moderate", 4: "Moderate" },
+            1: { 1: "Low", 2: "Low", 3: "Moderate", 4: "Moderate" }
+        };
+
+
+        const occurrenceLabels = [
+            { num: 5, label: "O-5: Frequent (≥ 10%)" },
+            { num: 4, label: "O-4: Probable (1% - <10%)" },
+            { num: 3, label: "O-3: Occasional (0.01% - <1%)" },
+            { num: 2, label: "O-2: Remote (0.001% - <0.01%)" },
+            { num: 1, label: "O-1: Improbable (< 0.001%)" }
+        ];
+
+
+        const auditQuestions = [
+            {
+                id: 1,
+                auditorRole: "Lead Notified Body Auditor (ISO 14971 Clause 7.3)",
+                title: "Balloon Rated Burst Pressure Evidence",
+                scenario: "Show me objective evidence for Line 2 (Balloon pin hole). A protocol alone only shows what you plan to test—what proves the balloon actually maintains pressure integrity until Rated Burst Pressure?",
+                options: [
+                    { text: "Validation Report for Stent Design Verification Test (Balloon compliance & balloon burst)", correct: true },
+                    { text: "Sterilization Validation Protocol only", correct: false },
+                    { text: "Label Integrity Verification Protocol", correct: false },
+                    { text: "Supplier raw material certificate of analysis only", correct: false }
+                ],
+                explanation: "Under ISO 14971 Clause 7.3, effectiveness verification requires executed test results—specifically the Validation Report for Balloon Compliance & Burst."
+            },
+            {
+                id: 2,
+                auditorRole: "Regulatory Affairs Specialist (ISO 14971 Clause 7.4)",
+                title: "Stent Retention Residual Occurrence",
+                scenario: "For Line 3 (Stent dislodgement), your pre-control occurrence was O-3 (Occasional). After implementing the retention design control, what is the verified residual occurrence rating?",
+                options: [
+                    { text: "O-1 (Improbable, < 0.001%)", correct: true },
+                    { text: "O-5 (Frequent, ≥ 10%)", correct: false },
+                    { text: "O-4 (Probable, 1% - <10%)", correct: false },
+                    { text: "O-3 (Occasional, unchanged)", correct: false }
+                ],
+                explanation: "Verified stent retention design controls lower the occurrence probability from O-3 (Occasional) down to O-1 (Improbable)."
+            },
+            {
+                id: 3,
+                auditorRole: "Design Assurance Lead (ISO 14971 Clause 7.1)",
+                title: "Stent Protection Cover Dimensional Control",
+                scenario: "In Line 4 ('Unable to remove stent protection cover'), how does your inherent design control prevent abrasion of the drug coating during removal?",
+                options: [
+                    { text: "Designing the protection cover larger than the maximum stent crossing profile", correct: true },
+                    { text: "Decreasing balloon nominal inflation pressure", correct: false },
+                    { text: "Using non-pyrogenic sterilization cycles", correct: false },
+                    { text: "Adding a warning sticker to the outer carton", correct: false }
+                ],
+                explanation: "Inherent safety by design (Tier 1): making the cover inner diameter larger than the maximum stent crossing profile prevents mechanical coating abrasion."
+            },
+            {
+                id: 4,
+                auditorRole: "Lead Notified Body Auditor (ISO 14971 Clause 7.1 Hierarchy)",
+                title: "Risk Control Option Priority Order",
+                scenario: "During design review for a new delivery catheter, an engineer proposes skipping design modifications and simply adding an IFU warning to lower a High risk. How does ISO 14971 require you to prioritize risk control options?",
+                options: [
+                    { text: "1) Inherent safety by design, 2) Protective measures in device/process, 3) Information for safety", correct: true },
+                    { text: "1) Information for safety (IFU), 2) Protective measures, 3) Inherent safety by design", correct: false },
+                    { text: "1) Post-market complaint tracking, 2) IFU warnings, 3) Design freeze", correct: false },
+                    { text: "All three options carry equal priority under ISO 14971", correct: false }
+                ],
+                explanation: "ISO 14971 Clause 7.1 mandates a strict priority order: Inherent safety by design first, protective measures second, and information for safety last."
+            },
+            {
+                id: 5,
+                auditorRole: "Clinical Safety Reviewer (ISO 14971 Clause 6 & 8)",
+                title: "Severity vs. Control Reduction",
+                scenario: "Look at Line 1 (Excessive pyrogens → Anaphylactic shock, S-4). Notice that after adding the non-pyrogenic control, the Residual Risk is still 'Moderate' (S-4, O-1). Why didn't the Severity drop from S-4 to S-1?",
+                options: [
+                    { text: "Risk controls reduced the probability of occurrence (O-2 → O-1), while the clinical severity of anaphylactic shock remains S-4", correct: true },
+                    { text: "It is a typographical error in the Risk Management File", correct: false },
+                    { text: "Sterilization Validation Reports are not recognized by ISO 14971", correct: false },
+                    { text: "Severity always drops automatically when Occurrence reaches O-1", correct: false }
+                ],
+                explanation: "Controls that prevent a failure from happening lower Occurrence (O-2 to O-1), whereas the clinical consequence if the harm still occurred remains Critical (S-4)."
+            },
+            {
+                id: 6,
+                auditorRole: "Post-Market Surveillance Auditor (ISO 14971 Clause 10)",
+                title: "Post-Production Feedback Loop",
+                scenario: "Six months post-launch, field complaints show hospital barcode scanners occasionally struggle to read smudged stent size labels after alcohol wipe-down. What must happen under Clause 10?",
+                options: [
+                    { text: "Feed the post-production data back into Risk Management to re-evaluate risk estimates and update controls/RMF", correct: true },
+                    { text: "Ignore the complaints if they are below 10% of total shipments", correct: false },
+                    { text: "Close the Risk Management File permanently once CE/FDA approval is granted", correct: false },
+                    { text: "Delete Line 5 from the FMEA table", correct: false }
+                ],
+                explanation: "ISO 14971 is a continuous lifecycle process: post-production field data must be reviewed to determine if previously unrecognized hazards or higher occurrence rates require RMF updates."
+            }
+        ];
+
+
+        const blitzDeck = [
+            { prompt: "Balloon pin hole", category: "Hazard", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Pinhole pressure damages vessel", category: "Hazardous Situation", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Rupture of artery (S-4)", category: "Harm", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Excessive pyrogens on stent", category: "Hazard", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Raising patient body temperature", category: "Hazardous Situation", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Anaphylactic shock", category: "Harm", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Stent dislodged inside coronary vessel", category: "Hazardous Situation", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Emergency surgical retrieval procedure", category: "Harm", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Label ink smear", category: "Hazard", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Incorrect stent/balloon size selected by clinician", category: "Hazardous Situation", choices: ["Hazard", "Hazardous Situation", "Harm"] },
+            { prompt: "Cover designed larger than max stent crossing profile", category: "Tier 1: Design", choices: ["Tier 1: Design", "Tier 2: Protective", "Tier 3: Info/IFU"] },
+            { prompt: "Automated 100% burst-pressure leak sensor on line", category: "Tier 2: Protective", choices: ["Tier 1: Design", "Tier 2: Protective", "Tier 3: Info/IFU"] },
+            { prompt: "Warning in IFU: 'Do not exceed Rated Burst Pressure'", category: "Tier 3: Info/IFU", choices: ["Tier 1: Design", "Tier 2: Protective", "Tier 3: Info/IFU"] },
+            { prompt: "Product engineered with non-pyrogenic materials", category: "Tier 1: Design", choices: ["Tier 1: Design", "Tier 2: Protective", "Tier 3: Info/IFU"] },
+            { prompt: "Risk remaining AFTER all control measures are verified", category: "Residual Risk", choices: ["Initial Risk", "Residual Risk", "Benefit-Risk"] },
+            { prompt: "Objective evidence confirming requirements were fulfilled", category: "Verification", choices: ["Verification", "Hazard", "Occurrence"] }
+        ];
+
+
+        const badgeDefinitions = [
+            { id: "chain_master", title: "Chain Architect", desc: "Complete all 5 FMEA Risk Flow Chains", icon: "git-merge" },
+            { id: "matrix_sniper", title: "Matrix Sniper", desc: "Plot all 5 Initial & Residual Risks on the Matrix", icon: "crosshair" },
+            { id: "audit_survivor", title: "Audit Survivor", desc: "Successfully pass the Regulatory Audit Defense", icon: "shield-check" },
+            { id: "blitz_champ", title: "Blitz Speedster", desc: "Score 250+ XP in a single 60s QRA Blitz run", icon: "zap" },
+            { id: "hot_streak", title: "Unstoppable Streak", desc: "Reach a 5x consecutive answer streak", icon: "flame" },
+            { id: "iso_certified", title: "ISO 14971 Certified", desc: "Reach 500+ total XP to unlock the Certificate", icon: "award" }
+        ];
+
+
+        // ==========================================
+        // 3. GLOBAL GAME STATE
+        // ==========================================
+        let currentScore = 0;
+        let currentStreak = 0;
+        let unlockedBadges = new Set();
+        let completedModules = { matcher: false, assessment: false, audit: false };
+
+
+        // Mode 1 State
+        let matcherCurrentIdx = 0;
+        let matcherSelected = { hazard: null, situation: null, harm: null, control: null };
+        let activeBankCardText = null;
+        let matcherMistakesThisRound = 0;
+
+
+        // Mode 2 State
+        let assessmentCurrentIdx = 0;
+        let matrixSelection = { initRow: null, initCol: null, resOcc: null, resRow: null, resCol: null };
+
+
+        // Mode 3 State
+        let auditCurrentIdx = 0;
+        let auditShields = 3;
+        let currentShuffledAuditOptions = [];
+
+
+        // Mode 4 (Blitz) State
+        let blitzTimer = null;
+        let blitzTimeLeft = 60;
+        let blitzRunScore = 0;
+        let blitzRunStreak = 0;
+        let blitzBestScore = parseInt(localStorage.getItem('qra_blitz_best') || '0', 10);
+        let currentBlitzCard = null;
+
+
+        // ==========================================
+        // 4. INITIALIZATION & CORE HUD UPDATES
+        // ==========================================
+        window.onload = function() {
+            lucide.createIcons();
+            renderDefinitions();
+            renderBadgesModal();
+            updateHUD();
+            initMatcherStep();
+            initAssessmentStep();
+            initAuditStep();
+            selectStep(1);
+            document.getElementById('blitz-best-score').innerText = `${blitzBestScore} XP`;
+        };
+
+
+        function getRankTitle(xp) {
+            if (xp >= 1100) return "ISO 14971 Grandmaster";
+            if (xp >= 750) return "Principal QRA Auditor";
+            if (xp >= 450) return "Senior Design Assurance Eng.";
+            if (xp >= 200) return "Risk Management Analyst";
+            return "Junior QRA Trainee";
+        }
+
+
+        function updateHUD() {
+            document.getElementById('header-score').innerText = `${currentScore} XP`;
+            document.getElementById('cert-score-text').innerText = `${currentScore} XP`;
+            document.getElementById('cert-final-xp').innerText = `${currentScore} XP`;
+
+
+            const rank = getRankTitle(currentScore);
+            document.getElementById('header-rank-badge').innerText = `Rank: ${rank}`;
+            document.getElementById('cert-rank-display').innerText = rank;
+
+
+            const streakPill = document.getElementById('streak-pill');
+            if (currentStreak >= 2) {
+                streakPill.classList.remove('hidden');
+                streakPill.classList.add('flex');
+                document.getElementById('header-streak').innerText = `${currentStreak}x Streak`;
+            } else {
+                streakPill.classList.add('hidden');
+                streakPill.classList.remove('flex');
+            }
+
+
+            if (currentStreak >= 5) unlockBadge('hot_streak');
+            if (currentScore >= 500) unlockBadge('iso_certified');
+
+
+            document.getElementById('badge-count-text').innerText = `${unlockedBadges.size}/${badgeDefinitions.length}`;
+            document.getElementById('cert-final-badges').innerText = `${unlockedBadges.size} / ${badgeDefinitions.length}`;
+
+
+            checkCertStatus();
+        }
+
+
+        function spawnFloatingXP(text, colorClass = "text-emerald-400") {
+            const el = document.createElement('div');
+            el.className = `xp-floater text-base sm:text-lg ${colorClass}`;
+            el.innerText = text;
+            el.style.left = `${Math.min(window.innerWidth - 140, Math.max(40, window.innerWidth * 0.5 + (Math.random() * 120 - 60)))}px`;
+            el.style.top = `110px`;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1100);
+        }
+
+
+        function showToast(title, subtitle, iconName = "award") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "bg-slate-900/95 border border-amber-500/50 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-pop max-w-xs";
+            toast.innerHTML = `
+                <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                    <i data-lucide="${iconName}" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <div class="text-xs font-extrabold text-amber-300 uppercase tracking-wide">${title}</div>
+                    <div class="text-xs text-slate-200">${subtitle}</div>
+                </div>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3400);
+        }
+
+
+        function unlockBadge(badgeId) {
+            if (unlockedBadges.has(badgeId)) return;
+            unlockedBadges.add(badgeId);
+            const badge = badgeDefinitions.find(b => b.id === badgeId);
+            if (badge) {
+                showToast("Badge Unlocked!", badge.title, badge.icon);
+                renderBadgesModal();
+                updateHUD();
+            }
+        }
+
+
+        function renderBadgesModal() {
+            const grid = document.getElementById('badges-grid');
+            grid.innerHTML = badgeDefinitions.map(b => {
+                const earned = unlockedBadges.has(b.id);
+                return `
+                    <div class="p-3.5 rounded-xl border ${earned ? 'bg-amber-500/10 border-amber-500/40' : 'bg-slate-900/60 border-slate-800 opacity-55'} flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl ${earned ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-500'} flex items-center justify-center shrink-0">
+                            <i data-lucide="${b.icon}" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold ${earned ? 'text-amber-300' : 'text-slate-400'} flex items-center gap-1.5">
+                                ${b.title} ${earned ? '<span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded">EARNED</span>' : ''}
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-0.5">${b.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+
+        function toggleBadgesModal() {
+            playSound('click');
+            const modal = document.getElementById('badges-modal');
+            modal.classList.toggle('hidden');
+            renderBadgesModal();
+        }
+
+
+        function addScore(points, label = null) {
+            currentScore += points;
+            spawnFloatingXP(label || `+${points} XP`);
+            updateHUD();
+        }
+
+
+        function resetAllProgress() {
+            playSound('click');
+            currentScore = 0;
+            currentStreak = 0;
+            unlockedBadges.clear();
+            completedModules = { matcher: false, assessment: false, audit: false };
+            ['matcher', 'assessment', 'audit'].forEach(m => {
+                const dot = document.getElementById(`status-dot-${m}`);
+                if (dot) {
+                    dot.classList.remove('bg-emerald-400');
+                    dot.classList.add('bg-slate-600');
+                }
+            });
+            matcherCurrentIdx = 0;
+            assessmentCurrentIdx = 0;
+            auditCurrentIdx = 0;
+            auditShields = 3;
+            if (blitzTimer) clearInterval(blitzTimer);
+            initMatcherStep();
+            initAssessmentStep();
+            initAuditStep();
+            renderBadgesModal();
+            updateHUD();
+            switchTab('hub');
+            showToast("Session Reset", "Ready for next QRA Day challenger!", "rotate-ccw");
+        }
+
+
+        // ==========================================
+        // 5. DEFINITIONS & LIFECYCLE MAP
+        // ==========================================
+        function renderDefinitions(filterText = "") {
+            const container = document.getElementById('definitions-container');
+            container.innerHTML = '';
+            const query = filterText.trim().toLowerCase();
+            const filtered = isoDefinitions.filter(item =>
+                item.term.toLowerCase().includes(query) || item.def.toLowerCase().includes(query)
+            );
+
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 col-span-full">No matching ISO 14971 definitions found.</p>`;
+                return;
+            }
+
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "p-3.5 rounded-lg bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition";
+                card.innerHTML = `
+                    <h4 class="text-xs font-bold text-cyan-400 mb-1">${item.term}</h4>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">${item.def}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+
+        function filterDefinitions() {
+            const val = document.getElementById('def-search').value;
+            renderDefinitions(val);
+        }
+
+
+        const lifecycleSteps = {
+            1: {
+                title: "Risk Management Planning",
+                clause: "Clause 4.4",
+                purpose: "Establish how risk management will be performed for the medical device.",
+                points: ["Scope of planned risk management activities.", "Assignment of responsibilities and authority.", "Requirements for review of risk management activities.", "Criteria for risk acceptability (Risk Matrix & Thresholds).", "Method for evaluating overall residual risk.", "Verification activities for risk control measures.", "Collection and review mechanisms for post-production info."]
+            },
+            2: {
+                title: "Risk Analysis",
+                clause: "Clause 5",
+                purpose: "Identify known and foreseeable hazards, hazardous situations and the associated risks.",
+                points: ["Define the intended use and reasonably foreseeable misuse.", "Identify relevant safety-related characteristics.", "Identify hazards and foreseeable sequences of events leading to hazardous situations.", "Estimate the risk for each identified hazardous situation."]
+            },
+            3: {
+                title: "Risk Evaluation",
+                clause: "Clause 6",
+                purpose: "Determine whether each estimated risk is acceptable using the criteria established in the risk management plan.",
+                points: ["Compare each estimated risk with the defined acceptability criteria.", "Record the evaluation outcome.", "Where a risk is not acceptable, proceed to risk control."]
+            },
+            4: {
+                title: "Risk Control",
+                clause: "Clause 7",
+                purpose: "Identify and implement risk control measures for risks requiring reduction.",
+                points: ["Identify appropriate risk control options.", "Tier 1: Inherent Safety by Design (Eliminate hazard by redesign).", "Tier 2: Protective Measures (Guards, hardware limits, automatic shutoffs).", "Tier 3: Information for Safety (Warnings, IFU manual, alarms).", "Implement the selected measures.", "Verify implementation and effectiveness of each control.", "Evaluate residual risk and assess whether new risks have been introduced.", "Repeat the control process when the risk remains unacceptable."]
+            },
+            5: {
+                title: "Residual Risk & Benefit Review",
+                clause: "Clause 8",
+                purpose: "Evaluate residual risks after risk controls and determine overall residual risk acceptability.",
+                points: ["Evaluate the residual risk for each hazardous situation.", "Perform a benefit-risk analysis when required by the risk management process.", "Evaluate the overall residual risk.", "Disclose relevant residual risks in accompanying information where appropriate."]
+            },
+            6: {
+                title: "Risk Management Report & Post-Market",
+                clause: "Clauses 9 & 10",
+                purpose: "Confirm that the risk management plan has been appropriately executed and maintain the process using production and post-production information.",
+                points: ["Review whether the risk management plan was implemented.", "Confirm that overall residual risk is acceptable and appropriate methods are in place to collect relevant information.", "Collect and review production and post-production information, including complaints, feedback and field data.", "Assess whether new hazards, hazardous situations or changes in risk estimates require updates to the risk management file."]
+            }
+        };
+
+
+        function selectStep(stepNumber) {
+            const step = lifecycleSteps[stepNumber];
+            if (!step) return;
+
+
+            document.querySelectorAll('.step-card').forEach(card => {
+                card.classList.remove('border-l-teal-500');
+                card.classList.add('border-l-slate-700');
+                card.querySelector('span').classList.remove('text-teal-400', 'bg-teal-500/10');
+                card.querySelector('span').classList.add('text-slate-400', 'bg-slate-800');
+            });
+
+
+            const selectedCard = document.getElementById(`step-card-${stepNumber}`);
+            selectedCard.classList.remove('border-l-slate-700');
+            selectedCard.classList.add('border-l-teal-500');
+            selectedCard.querySelector('span').classList.remove('text-slate-400', 'bg-slate-800');
+            selectedCard.querySelector('span').classList.add('text-teal-400', 'bg-teal-500/10');
+
+
+            document.getElementById('step-detail-container').innerHTML = `
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
+                    <div>
+                        <p class="text-xs font-mono text-teal-400 mb-1">${step.clause}</p>
+                        <h3 class="text-xl font-bold text-white">${step.title}</h3>
+                    </div>
+                    <span class="text-xs px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30">Lifecycle step ${stepNumber} of 6</span>
+                </div>
+                <p class="text-sm text-slate-300 mb-4">${step.purpose}</p>
+                <ul class="space-y-2">
+                    ${step.points.map(point => `<li class="flex gap-2 text-sm text-slate-300"><span class="text-teal-400">✓</span><span>${point}</span></li>`).join('')}
+                </ul>
+            `;
+        }
+
+
+        function switchTab(tabId) {
+            playSound('click');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab').forEach(el => {
+                el.classList.remove('bg-cyan-600', 'text-white', 'shadow-lg');
+                if (el.id === 'tab-blitz') {
+                    el.classList.add('text-amber-300', 'hover:text-white');
+                } else {
+                    el.classList.add('text-slate-400', 'hover:text-white');
+                }
+            });
+
+
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`tab-${tabId}`);
+            activeNav.classList.add('bg-cyan-600', 'text-white', 'shadow-lg');
+            activeNav.classList.remove('text-slate-400', 'text-amber-300');
+        }
+
+
+        // ==========================================
+        // 6. GAME MODE 1: RISK FLOW CHAIN BUILDER
+        // (Drag-and-Drop + Two-Step Click + 8 Cards)
+        // ==========================================
+        function initMatcherStep() {
+            const currentItem = riskTableData[matcherCurrentIdx];
+            matcherMistakesThisRound = 0;
+            activeBankCardText = null;
+
+
+            document.getElementById('matcher-progress').innerText = `Line ${matcherCurrentIdx + 1} of ${riskTableData.length}`;
+            document.getElementById('matcher-bar').style.width = `${((matcherCurrentIdx + 1) / riskTableData.length) * 100}%`;
+            document.getElementById('matcher-item-name').innerText = currentItem.item;
+            document.getElementById('matcher-item-func').innerText = `Function: ${currentItem.func}`;
+
+
+            resetMatcherCurrent();
+
+
+            const bank = document.getElementById('options-bank');
+            bank.innerHTML = '';
+
+
+            const nextIdx1 = (matcherCurrentIdx + 1) % riskTableData.length;
+            const nextIdx2 = (matcherCurrentIdx + 2) % riskTableData.length;
+
+
+            // 4 true cards + 4 plausible distractors
+            let optionsPool = [
+                currentItem.hazard,
+                currentItem.situation,
+                currentItem.harm,
+                currentItem.control,
+                riskTableData[nextIdx1].hazard,
+                riskTableData[nextIdx1].situation,
+                riskTableData[nextIdx2].harm,
+                riskTableData[nextIdx2].control
+            ];
+
+
+            optionsPool.sort(() => Math.random() - 0.5);
+
+
+            optionsPool.forEach((text, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `bank-card-${idx}`;
+                btn.draggable = true;
+                btn.dataset.text = text;
+                btn.className = "bank-card text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 p-3 rounded-xl text-left transition flex items-start justify-between gap-2 cursor-grab active:cursor-grabbing";
+                btn.innerHTML = `<span>${text}</span><i data-lucide="grip-vertical" class="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5"></i>`;
+
+
+                btn.ondragstart = (e) => {
+                    e.dataTransfer.setData("text/plain", text);
+                    selectBankCard(text, btn);
+                };
+                btn.onclick = () => {
+                    playSound('click');
+                    selectBankCard(text, btn);
+                };
+                bank.appendChild(btn);
+            });
+
+
+            lucide.createIcons();
+            document.getElementById('matcher-feedback').classList.add('hidden');
+        }
+
+
+        function selectBankCard(text, btnEl) {
+            document.querySelectorAll('.bank-card').forEach(b => {
+                b.classList.remove('border-cyan-400', 'bg-cyan-950/60', 'ring-2', 'ring-cyan-400/50');
+            });
+
+
+            if (activeBankCardText === text) {
+                activeBankCardText = null;
+                document.getElementById('selected-card-indicator').classList.add('hidden');
+                return;
+            }
+
+
+            activeBankCardText = text;
+            btnEl.classList.add('border-cyan-400', 'bg-cyan-950/60', 'ring-2', 'ring-cyan-400/50');
+            document.getElementById('selected-card-indicator').classList.remove('hidden');
+        }
+
+
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+
+
+        function dropOnSlot(e, slotType) {
+            e.preventDefault();
+            const text = e.dataTransfer.getData("text/plain");
+            if (text) {
+                playSound('click');
+                assignTextToSlot(slotType, text);
+            }
+        }
+
+
+        function handleSlotClick(slotType) {
+            playSound('click');
+            if (activeBankCardText) {
+                assignTextToSlot(slotType, activeBankCardText);
+                activeBankCardText = null;
+                document.getElementById('selected-card-indicator').classList.add('hidden');
+                document.querySelectorAll('.bank-card').forEach(b => {
+                    b.classList.remove('border-cyan-400', 'bg-cyan-950/60', 'ring-2', 'ring-cyan-400/50');
+                });
+            } else if (matcherSelected[slotType]) {
+                clearSlot(slotType);
+            }
+        }
+
+
+        function assignTextToSlot(type, text) {
+            ['hazard', 'situation', 'harm', 'control'].forEach(k => {
+                if (matcherSelected[k] === text) clearSlot(k);
+            });
+
+
+            matcherSelected[type] = text;
+            const slot = document.getElementById(`slot-${type}`);
+            slot.className = "slot-target min-h-[104px] border-2 border-solid border-cyan-500 bg-cyan-950/40 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer transition animate-pop";
+            slot.innerHTML = `<span class="text-xs text-cyan-100 font-semibold">${text}</span><span class="text-[10px] text-cyan-400/80 mt-1.5">(Click to remove)</span>`;
+            refreshBankCardStates();
+        }
+
+
+        function clearSlot(type) {
+            matcherSelected[type] = null;
+            const slot = document.getElementById(`slot-${type}`);
+            const labels = {
+                hazard: "Drop or Click to Assign Hazard",
+                situation: "Drop or Click to Assign Situation",
+                harm: "Drop or Click to Assign Harm",
+                control: "Drop or Click to Assign Control"
+            };
+            slot.className = "slot-target min-h-[104px] border-2 border-dashed border-slate-700 bg-slate-900/60 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer hover:border-cyan-500/60 transition";
+            slot.innerHTML = `<span class="text-xs text-slate-500 pointer-events-none">${labels[type]}</span>`;
+            refreshBankCardStates();
+        }
+
+
+        function refreshBankCardStates() {
+            const usedTexts = new Set(Object.values(matcherSelected).filter(Boolean));
+            document.querySelectorAll('.bank-card').forEach(btn => {
+                if (usedTexts.has(btn.dataset.text)) {
+                    btn.classList.add('opacity-40');
+                } else {
+                    btn.classList.remove('opacity-40');
+                }
+            });
+        }
+
+
+        function resetMatcherCurrent() {
+            activeBankCardText = null;
+            const indicator = document.getElementById('selected-card-indicator');
+            if (indicator) indicator.classList.add('hidden');
+            ['hazard', 'situation', 'harm', 'control'].forEach(t => clearSlot(t));
+        }
+
+
+        function evaluateMatcherStep() {
+            const currentItem = riskTableData[matcherCurrentIdx];
+            const feedback = document.getElementById('matcher-feedback');
+
+
+            if (!matcherSelected.hazard || !matcherSelected.situation || !matcherSelected.harm || !matcherSelected.control) {
+                playSound('wrong');
+                feedback.classList.remove('hidden');
+                feedback.className = "p-4 rounded-xl border border-amber-500/50 bg-amber-950/40 text-amber-200 text-xs animate-shake";
+                feedback.innerHTML = `<strong>Incomplete Chain:</strong> Fill all 4 stages (Hazard → Hazardous Situation → Harm → Control) before validating.`;
+                return;
+            }
+
+
+            const checks = {
+                hazard: matcherSelected.hazard === currentItem.hazard,
+                situation: matcherSelected.situation === currentItem.situation,
+                harm: matcherSelected.harm === currentItem.harm,
+                control: matcherSelected.control === currentItem.control
+            };
+
+
+            const allCorrect = checks.hazard && checks.situation && checks.harm && checks.control;
+            feedback.classList.remove('hidden');
+
+
+            if (allCorrect) {
+                playSound('correct');
+                currentStreak++;
+                const bonus = matcherMistakesThisRound === 0 ? 25 : 0;
+                const totalEarned = 100 + bonus;
+
+
+                ['hazard', 'situation', 'harm', 'control'].forEach(t => {
+                    const slot = document.getElementById(`slot-${t}`);
+                    slot.classList.remove('border-cyan-500', 'bg-cyan-950/40');
+                    slot.classList.add('border-emerald-500', 'bg-emerald-950/40');
+                });
+
+
+                feedback.className = "p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/40 text-emerald-200 text-xs leading-relaxed space-y-1.5 animate-pop";
+                feedback.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="flex items-center gap-2 font-bold text-sm text-emerald-400">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i> FMEA Chain Verified! (+${totalEarned} XP ${bonus ? '• First-Try Bonus!' : ''})
+                        </span>
+                    </div>
+                    <p><strong>Implementation Verification:</strong> ${currentItem.impVerif}</p>
+                    <p><strong>Effectiveness Verification:</strong> ${currentItem.effVerif}</p>
+                `;
+                lucide.createIcons();
+                addScore(totalEarned, `+${totalEarned} XP!`);
+
+
+                setTimeout(() => {
+                    matcherCurrentIdx++;
+                    if (matcherCurrentIdx < riskTableData.length) {
+                        initMatcherStep();
+                    } else {
+                        playSound('fanfare');
+                        completedModules.matcher = true;
+                        document.getElementById('status-dot-matcher').classList.replace('bg-slate-600', 'bg-emerald-400');
+                        unlockBadge('chain_master');
+                        confetti({ particleCount: 70, spread: 65, origin: { y: 0.6 } });
+                        feedback.innerHTML += `
+                            <div class="mt-3 pt-3 border-t border-emerald-500/30 flex flex-wrap items-center justify-between gap-2">
+                                <span class="text-amber-300 font-bold">🎉 All 5 Drug Coated Stent Lines Mapped!</span>
+                                <button onclick="switchTab('assessment')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-1.5 rounded-lg text-xs transition">
+                                    Proceed to Mission 2: Matrix Simulator &rarr;
+                                </button>
+                            </div>
+                        `;
+                    }
+                }, 1900);
+            } else {
+                playSound('wrong');
+                currentStreak = 0;
+                matcherMistakesThisRound++;
+                updateHUD();
+
+
+                let wrongList = [];
+                ['hazard', 'situation', 'harm', 'control'].forEach(t => {
+                    const slot = document.getElementById(`slot-${t}`);
+                    if (checks[t]) {
+                        slot.classList.remove('border-cyan-500', 'border-rose-500');
+                        slot.classList.add('border-emerald-500', 'bg-emerald-950/30');
+                    } else {
+                        slot.classList.remove('border-cyan-500', 'border-emerald-500');
+                        slot.classList.add('border-rose-500', 'bg-rose-950/40', 'animate-shake');
+                        setTimeout(() => slot.classList.remove('animate-shake'), 400);
+                        wrongList.push(t.toUpperCase());
+                    }
+                });
+
+
+                feedback.className = "p-4 rounded-xl border border-rose-500/50 bg-rose-950/40 text-rose-200 text-xs leading-relaxed animate-pop";
+                feedback.innerHTML = `
+                    <div class="flex items-center gap-2 font-bold text-sm text-rose-400">
+                        <i data-lucide="alert-circle" class="w-5 h-5"></i> Mismatch Detected in: ${wrongList.join(', ')}
+                    </div>
+                    <p class="mt-1">Green slots are locked in correctly. Click any red-outlined slot to remove the wrong card and replace it.</p>
+                `;
+                lucide.createIcons();
+            }
+        }
+
+
+        // ==========================================
+        // 7. GAME MODE 2: INTERACTIVE MATRIX SIMULATOR
+        // ==========================================
+        function buildInteractiveMatrixHTML(prefix) {
+            const severities = [1, 2, 3, 4];
+            let rowsHTML = occurrenceLabels.map(occ => {
+                const cells = severities.map(sev => {
+                    const level = matrixLookup[occ.num][sev];
+                    const colorClass = level === 'High' ? 'risk-high' : (level === 'Moderate' ? 'risk-moderate' : 'risk-low');
+                    return `
+                        <td class="p-1 border border-slate-700">
+                            <button type="button"
+                                    id="${prefix}-cell-${occ.num}-${sev}"
+                                    onclick="selectMatrixCell('${prefix}', ${occ.num}, ${sev})"
+                                    class="matrix-cell-btn w-full py-2.5 px-1 rounded font-bold text-[11px] ${colorClass}">
+                                ${level}
+                            </button>
+                        </td>
+                    `;
+                }).join('');
+
+
+                return `
+                    <tr>
+                        <td class="p-2 border border-slate-700 bg-slate-800/90 text-left text-[11px] font-semibold text-slate-300 whitespace-nowrap">${occ.label}</td>
+                        ${cells}
+                    </tr>
+                `;
+            }).join('');
+
+
+            return `
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-slate-300">
+                                <th class="p-2 border border-slate-700 text-left text-[11px]">OCCURRENCE \ SEVERITY</th>
+                                <th class="p-2 border border-slate-700 text-[11px]">S-1 Negligible</th>
+                                <th class="p-2 border border-slate-700 text-[11px]">S-2 Minor</th>
+                                <th class="p-2 border border-slate-700 text-[11px]">S-3 Major</th>
+                                <th class="p-2 border border-slate-700 text-[11px]">S-4 Critical</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHTML}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+
+        function initAssessmentStep() {
+            const card = document.getElementById('assessment-card');
+            const item = riskTableData[assessmentCurrentIdx];
+            matrixSelection = { initRow: null, initCol: null, resOcc: null, resRow: null, resCol: null };
+
+
+            document.getElementById('assess-q-num').innerText = assessmentCurrentIdx + 1;
+            document.getElementById('assessment-bar').style.width = `${((assessmentCurrentIdx + 1) / riskTableData.length) * 100}%`;
+
+
+            card.innerHTML = `
+                <div class="bg-slate-900/90 p-5 rounded-xl border border-cyan-500/30 space-y-2.5">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <div>
+                            <span class="text-xs text-cyan-400 font-mono">FMEA Line ${item.line} of ${riskTableData.length}</span>
+                            <h3 class="text-lg font-bold text-white">${item.item}</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-rose-500/20 text-rose-300 px-3 py-1 rounded-full border border-rose-500/40 font-semibold">
+                                Severity: ${item.initialSeverity}
+                            </span>
+                            <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/40 font-semibold">
+                                Initial Occ: ${item.initialOcc}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300"><strong>Hazard:</strong> ${item.hazard} &rarr; <strong>Harm:</strong> ${item.harm}</p>
+                    <p class="text-xs text-emerald-300 bg-emerald-950/30 border border-emerald-500/30 px-3 py-2 rounded-lg">
+                        <strong>Applied Risk Control:</strong> "${item.control}" (Verified via ${item.effVerif})
+                    </p>
+                </div>
+
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Step A: Plot Initial Risk -->
+                    <div class="bg-slate-900/70 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-amber-300">Step A: Plot Pre-Control Initial Risk</h4>
+                            <span id="init-cell-readout" class="text-[11px] font-mono text-slate-400">Click cell (${item.initialOcc.split(' ')[0]}, S-${item.sevNum})</span>
+                        </div>
+                        ${buildInteractiveMatrixHTML('init')}
+                    </div>
+
+
+                    <!-- Step B: Select Residual Occurrence & Plot Residual Risk -->
+                    <div class="bg-slate-900/70 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-300">Step B: Post-Control Residual Risk</h4>
+                            <select id="res-occ-select" onchange="onResOccChange()" class="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-cyan-500">
+                                <option value="">-- Select Verified Residual Occ --</option>
+                                <option value="1">O-1: Improbable (< 0.001%)</option>
+                                <option value="2">O-2: Remote (0.001% - <0.01%)</option>
+                                <option value="3">O-3: Occasional (0.01% - <1%)</option>
+                                <option value="4">O-4: Probable (1% - <10%)</option>
+                                <option value="5">O-5: Frequent (≥ 10%)</option>
+                            </select>
+                        </div>
+                        ${buildInteractiveMatrixHTML('res')}
+                    </div>
+                </div>
+
+
+                <div class="flex justify-end pt-2">
+                    <button onclick="validateMatrixAssessment()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg flex items-center gap-2">
+                        <i data-lucide="crosshair" class="w-4 h-4"></i> Submit Matrix Evaluation
+                    </button>
+                </div>
+
+
+                <div id="assess-feedback" class="hidden p-4 rounded-xl border animate-pop"></div>
+            `;
+            lucide.createIcons();
+        }
+
+
+        function selectMatrixCell(prefix, occRow, sevCol) {
+            playSound('click');
+            document.querySelectorAll(`[id^="${prefix}-cell-"]`).forEach(btn => btn.classList.remove('matrix-cell-selected'));
+            const chosen = document.getElementById(`${prefix}-cell-${occRow}-${sevCol}`);
+            if (chosen) chosen.classList.add('matrix-cell-selected');
+
+
+            if (prefix === 'init') {
+                matrixSelection.initRow = occRow;
+                matrixSelection.initCol = sevCol;
+                document.getElementById('init-cell-readout').innerText = `Selected: O-${occRow}, S-${sevCol} (${matrixLookup[occRow][sevCol]})`;
+            } else {
+                matrixSelection.resRow = occRow;
+                matrixSelection.resCol = sevCol;
+            }
+        }
+
+
+        function onResOccChange() {
+            playSound('click');
+            const val = parseInt(document.getElementById('res-occ-select').value, 10);
+            matrixSelection.resOcc = isNaN(val) ? null : val;
+        }
+
+
+        function validateMatrixAssessment() {
+            const item = riskTableData[assessmentCurrentIdx];
+            const feedback = document.getElementById('assess-feedback');
+            feedback.classList.remove('hidden');
+
+
+            if (!matrixSelection.initRow || !matrixSelection.resOcc || !matrixSelection.resRow) {
+                playSound('wrong');
+                feedback.className = "p-4 rounded-xl border border-amber-500/50 bg-amber-950/40 text-amber-200 text-xs animate-shake";
+                feedback.innerHTML = `<strong>Selection Incomplete:</strong> Please click your Initial Risk cell in Step A, choose the Residual Occurrence dropdown, and click the Residual Risk cell in Step B.`;
+                return;
+            }
+
+
+            const initCorrect = (matrixSelection.initRow === item.initOccNum && matrixSelection.initCol === item.sevNum);
+            const resOccCorrect = (matrixSelection.resOcc === item.resOccNum);
+            const resCellCorrect = (matrixSelection.resRow === item.resOccNum && matrixSelection.resCol === item.sevNum);
+
+
+            if (initCorrect && resOccCorrect && resCellCorrect) {
+                playSound('correct');
+                currentStreak++;
+                feedback.className = "p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/40 text-emerald-200 text-xs space-y-1 animate-pop";
+                feedback.innerHTML = `
+                    <div class="font-bold text-sm text-emerald-400">✔ Matrix Coordinates Verified! (+120 XP)</div>
+                    <p>Initial: <strong>O-${item.initOccNum} × S-${item.sevNum} = ${item.initialRisk}</strong> &rarr; Post-Control Residual: <strong>O-${item.resOccNum} × S-${item.sevNum} = ${item.resRisk}</strong>.</p>
+                `;
+                addScore(120);
+
+
+                setTimeout(() => {
+                    assessmentCurrentIdx++;
+                    if (assessmentCurrentIdx < riskTableData.length) {
+                        initAssessmentStep();
+                    } else {
+                        playSound('fanfare');
+                        completedModules.assessment = true;
+                        document.getElementById('status-dot-assessment').classList.replace('bg-slate-600', 'bg-emerald-400');
+                        unlockBadge('matrix_sniper');
+                        confetti({ particleCount: 70, spread: 65, origin: { y: 0.6 } });
+                        feedback.innerHTML += `
+                            <div class="mt-3 pt-3 border-t border-emerald-500/30 flex flex-wrap items-center justify-between gap-2">
+                                <span class="text-amber-300 font-bold">🎉 Matrix Simulator Mastered!</span>
+                                <button onclick="switchTab('audit')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-1.5 rounded-lg text-xs transition">
+                                    Proceed to Mission 3: Audit Defense &rarr;
+                                </button>
+                            </div>
+                        `;
+                    }
+                }, 1900);
+            } else {
+                playSound('wrong');
+                currentStreak = 0;
+                updateHUD();
+                let hints = [];
+                if (!initCorrect) hints.push(`Check Step A coordinates: ${item.initialOcc.split(' ')[0]} (Row) and S-${item.sevNum} (Column).`);
+                if (!resOccCorrect) hints.push(`Verified risk controls lower occurrence to O-1 (Improbable).`);
+                if (!resCellCorrect) hints.push(`Remember: design controls lower Occurrence (Row), while Severity S-${item.sevNum} (Column) stays constant.`);
+
+
+                feedback.className = "p-4 rounded-xl border border-rose-500/50 bg-rose-950/40 text-rose-200 text-xs space-y-1 animate-shake";
+                feedback.innerHTML = `
+                    <div class="font-bold text-rose-400">✖ Matrix Plot Misaligned</div>
+                    <ul class="list-disc pl-4 space-y-0.5">${hints.map(h => `<li>${h}</li>`).join('')}</ul>
+                `;
+            }
+        }
+
+
+        // ==========================================
+        // 8. GAME MODE 3: REGULATORY AUDIT SIMULATOR
+        // ==========================================
+        function renderAuditShields() {
+            const container = document.getElementById('audit-shields');
+            let html = `<span class="text-[11px] text-slate-400 mr-1">Compliance:</span>`;
+            for (let i = 0; i < 3; i++) {
+                if (i < auditShields) {
+                    html += `<i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>`;
+                } else {
+                    html += `<i data-lucide="shield-off" class="w-4 h-4 text-rose-500/60"></i>`;
+                }
+            }
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+
+        function initAuditStep() {
+            renderAuditShields();
+            const card = document.getElementById('audit-card');
+            const q = auditQuestions[auditCurrentIdx];
+            document.getElementById('audit-q-num').innerText = auditCurrentIdx + 1;
+
+
+            currentShuffledAuditOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+
+            let optionsHTML = currentShuffledAuditOptions.map((opt, idx) => `
+                <button onclick="checkAuditAnswer(${idx})" class="audit-opt-btn w-full p-4 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 hover:border-amber-400/50 text-left transition text-xs text-slate-200 flex items-center justify-between gap-3 group">
+                    <span class="leading-relaxed">${opt.text}</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-amber-300 shrink-0"></i>
+                </button>
+            `).join('');
+
+
+            card.innerHTML = `
+                <div class="bg-slate-900/90 p-5 rounded-xl border border-amber-500/30 space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+                            <i data-lucide="alert-octagon" class="w-5 h-5"></i>
+                            ${q.title}
+                        </div>
+                        <span class="text-[11px] font-mono px-2.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30">${q.auditorRole}</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-200 leading-relaxed italic">"${q.scenario}"</p>
+                </div>
+
+
+                <div class="space-y-3">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Present Objective Evidence / QA Response:</span>
+                    <div class="space-y-2.5">
+                        ${optionsHTML}
+                    </div>
+                </div>
+
+
+                <div id="audit-feedback" class="hidden p-4 rounded-xl border animate-pop"></div>
+            `;
+            lucide.createIcons();
+        }
+
+
+        function checkAuditAnswer(selectedIdx) {
+            const q = auditQuestions[auditCurrentIdx];
+            const chosen = currentShuffledAuditOptions[selectedIdx];
+            const feedback = document.getElementById('audit-feedback');
+            feedback.classList.remove('hidden');
+
+
+            if (chosen.correct) {
+                playSound('correct');
+                currentStreak++;
+                document.querySelectorAll('.audit-opt-btn').forEach(b => b.disabled = true);
+
+
+                feedback.className = "p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/40 text-emerald-200 text-xs space-y-1.5";
+                feedback.innerHTML = `
+                    <div class="font-bold text-sm text-emerald-400">✔ Auditor Satisfied — Finding Closed! (+150 XP)</div>
+                    <p>${q.explanation}</p>
+                `;
+                addScore(150);
+
+
+                setTimeout(() => {
+                    auditCurrentIdx++;
+                    if (auditCurrentIdx < auditQuestions.length) {
+                        initAuditStep();
+                    } else {
+                        playSound('fanfare');
+                        completedModules.audit = true;
+                        document.getElementById('status-dot-audit').classList.replace('bg-slate-600', 'bg-emerald-400');
+                        unlockBadge('audit_survivor');
+                        confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
+                        feedback.innerHTML += `
+                            <div class="mt-3 pt-3 border-t border-emerald-500/30 flex flex-wrap items-center justify-between gap-2">
+                                <span class="text-amber-300 font-bold">🏆 Zero Major Non-Conformities! Regulatory Audit Passed!</span>
+                                <button onclick="switchTab('blitz')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-4 py-1.5 rounded-lg text-xs transition">
+                                    Try Mission 4: 60s QRA Blitz &rarr;
+                                </button>
+                            </div>
+                        `;
+                    }
+                }, 2000);
+            } else {
+                playSound('wrong');
+                currentStreak = 0;
+                auditShields--;
+                renderAuditShields();
+                updateHUD();
+
+
+                if (auditShields <= 0) {
+                    feedback.className = "p-4 rounded-xl border border-rose-500 bg-rose-950/70 text-rose-200 text-xs space-y-3";
+                    feedback.innerHTML = `
+                        <div class="font-bold text-sm text-rose-400">🚨 Major Non-Conformity Issued — Audit Suspended!</div>
+                        <p>All 3 Compliance Integrity shields were lost. Review the ISO 14971 verification hierarchy and re-enter the audit.</p>
+                        <button onclick="restartAudit()" class="bg-rose-500 hover:bg-rose-400 text-white font-bold px-4 py-2 rounded-lg text-xs transition">
+                            Restart Audit Defense
+                        </button>
+                    `;
+                    document.querySelectorAll('.audit-opt-btn').forEach(b => b.disabled = true);
+                } else {
+                    feedback.className = "p-4 rounded-xl border border-rose-500/50 bg-rose-950/40 text-rose-200 text-xs space-y-1 animate-shake";
+                    feedback.innerHTML = `
+                        <div class="font-bold text-rose-400">✖ Auditor Pushback! (-1 Compliance Shield)</div>
+                        <p>That evidence does not satisfy ISO 14971 requirements. Select a stronger regulatory response.</p>
+                    `;
+                }
+            }
+        }
+
+
+        function restartAudit() {
+            playSound('click');
+            auditCurrentIdx = 0;
+            auditShields = 3;
+            initAuditStep();
+        }
+
+
+        // ==========================================
+        // 9. GAME MODE 4: 60-SECOND QRA BLITZ
+        // ==========================================
+        function startBlitzGame() {
+            playSound('fanfare');
+            if (blitzTimer) clearInterval(blitzTimer);
+            blitzTimeLeft = 60;
+            blitzRunScore = 0;
+            blitzRunStreak = 0;
+            nextBlitzCard();
+
+
+            blitzTimer = setInterval(() => {
+                blitzTimeLeft--;
+                const timerText = document.getElementById('blitz-timer-text');
+                const timerBar = document.getElementById('blitz-timer-bar');
+                if (timerText) timerText.innerText = `${blitzTimeLeft}s`;
+                if (timerBar) {
+                    timerBar.style.width = `${(blitzTimeLeft / 60) * 100}%`;
+                    if (blitzTimeLeft <= 10) {
+                        timerBar.classList.remove('bg-amber-400', 'bg-cyan-400');
+                        timerBar.classList.add('bg-rose-500');
+                        playSound('tick');
+                    } else if (blitzTimeLeft <= 25) {
+                        timerBar.classList.remove('bg-cyan-400');
+                        timerBar.classList.add('bg-amber-400');
+                    }
+                }
+
+
+                if (blitzTimeLeft <= 0) {
+                    endBlitzGame();
+                }
+            }, 1000);
+        }
+
+
+        function nextBlitzCard() {
+            const arena = document.getElementById('blitz-arena');
+            currentBlitzCard = blitzDeck[Math.floor(Math.random() * blitzDeck.length)];
+            const mult = Math.min(4, 1 + Math.floor(blitzRunStreak / 3));
+
+
+            arena.innerHTML = `
+                <div class="max-w-xl mx-auto space-y-5">
+                    <!-- Top Telemetry -->
+                    <div class="flex items-center justify-between text-xs font-bold">
+                        <span class="px-3 py-1 rounded-lg bg-slate-800 border border-slate-700 text-cyan-300">
+                            Run Score: <span id="blitz-run-score">${blitzRunScore}</span> XP
+                        </span>
+                        <span class="px-3 py-1 rounded-lg ${mult >= 3 ? 'bg-orange-500/20 border-orange-500/40 text-orange-300' : 'bg-slate-800 border-slate-700 text-amber-300'} border">
+                            Multiplier: ${mult}x (Streak: ${blitzRunStreak})
+                        </span>
+                        <span class="px-3 py-1 rounded-lg bg-slate-800 border border-slate-700 text-white font-mono">
+                            ⏱ <span id="blitz-timer-text">${blitzTimeLeft}s</span>
+                        </span>
+                    </div>
+
+
+                    <!-- Countdown Bar -->
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="blitz-timer-bar" class="bg-cyan-400 h-full transition-all duration-500" style="width: ${(blitzTimeLeft / 60) * 100}%"></div>
+                    </div>
+
+
+                    <!-- Prompt Card -->
+                    <div class="p-6 rounded-2xl bg-slate-950 border border-slate-700 shadow-inner animate-pop">
+                        <span class="text-[11px] uppercase tracking-widest text-slate-400 font-semibold">Classify Immediately:</span>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-white mt-2">"${currentBlitzCard.prompt}"</h3>
+                    </div>
+
+
+                    <!-- 3 Fast Buttons -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        ${currentBlitzCard.choices.map(choice => `
+                            <button onclick="answerBlitz('${choice.replace(/'/g, "\\'")}')" class="py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-cyan-600 text-white font-bold text-xs sm:text-sm border border-slate-700 hover:border-cyan-400 transition active:scale-95">
+                                ${choice}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+
+        function answerBlitz(choice) {
+            if (blitzTimeLeft <= 0) return;
+
+
+            if (choice === currentBlitzCard.category) {
+                playSound('correct');
+                blitzRunStreak++;
+                currentStreak++;
+                const mult = Math.min(4, 1 + Math.floor((blitzRunStreak - 1) / 3));
+                const gained = 25 * mult;
+                blitzRunScore += gained;
+                addScore(gained, `+${gained} XP (${mult}x)`);
+            } else {
+                playSound('wrong');
+                blitzRunStreak = 0;
+                currentStreak = 0;
+                updateHUD();
+                const arena = document.getElementById('blitz-arena');
+                arena.classList.add('animate-shake');
+                setTimeout(() => arena.classList.remove('animate-shake'), 350);
+            }
+            nextBlitzCard();
+        }
+
+
+        function endBlitzGame() {
+            clearInterval(blitzTimer);
+            blitzTimer = null;
+            playSound('fanfare');
+
+
+            if (blitzRunScore > blitzBestScore) {
+                blitzBestScore = blitzRunScore;
+                localStorage.setItem('qra_blitz_best', String(blitzBestScore));
+                document.getElementById('blitz-best-score').innerText = `${blitzBestScore} XP`;
+            }
+
+
+            if (blitzRunScore >= 250) {
+                unlockBadge('blitz_champ');
+                confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+            }
+
+
+            const arena = document.getElementById('blitz-arena');
+            arena.innerHTML = `
+                <div class="max-w-md mx-auto py-6 space-y-4 animate-pop">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Time's Up!</span>
+                    <h3 class="text-2xl font-extrabold text-white">Blitz Run Complete</h3>
+                    <div class="grid grid-cols-2 gap-3 my-4">
+                        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block">Run Earned</span>
+                            <strong class="text-lg text-cyan-400">+${blitzRunScore} XP</strong>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                            <span class="text-[11px] text-slate-400 block">All-Time Best</span>
+                            <strong class="text-lg text-amber-400">${blitzBestScore} XP</strong>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300">
+                        ${blitzRunScore >= 250 ? "Incredible reflexes! You unlocked the Blitz Speedster badge." : "Score 250+ XP in a single run to unlock the Blitz Speedster badge!"}
+                    </p>
+                    <button onclick="startBlitzGame()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-6 py-2.5 rounded-xl text-xs transition inline-flex items-center gap-2">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Play Another 60s Round
+                    </button>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+
+        // ==========================================
+        // 10. CERTIFICATE & PRINT SYSTEM
+        // ==========================================
+        function updateCertName() {
+            const name = document.getElementById('trainee-name').value || 'Quality Assurance Engineer';
+            document.getElementById('cert-display-name').innerText = name;
+        }
+
+
+        function checkCertStatus() {
+            const btnPrint = document.getElementById('btn-print-cert');
+            const btnWin = document.getElementById('btn-window-cert');
+            const msg = document.getElementById('cert-status-msg');
+
+
+            if (currentScore >= 500) {
+                [btnPrint, btnWin].forEach(b => {
+                    b.disabled = false;
+                    b.classList.remove('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
+                    b.classList.add('bg-cyan-600', 'hover:bg-cyan-500', 'text-white', 'cursor-pointer');
+                });
+                msg.className = "text-sm font-medium text-emerald-400 mb-6";
+                msg.innerText = "Congratulations! Your ISO 14971 Qualification Certificate is unlocked and ready to print.";
+            } else {
+                [btnPrint, btnWin].forEach(b => {
+                    b.disabled = true;
+                    b.classList.add('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
+                    b.classList.remove('bg-cyan-600', 'hover:bg-cyan-500', 'text-white', 'cursor-pointer');
+                });
+                msg.className = "text-sm font-medium text-amber-400 mb-6";
+                msg.innerText = `Complete risk missions to reach at least 500 XP (Current XP: ${currentScore} XP).`;
+            }
+        }
+
+
+        function triggerPrintCertificate() {
+            playSound('fanfare');
+            window.print();
+        }
+
+
+        function openCertificateWindow() {
+            playSound('fanfare');
+            const certHTML = document.getElementById('printable-certificate').outerHTML;
+            const printWin = window.open('', '_blank', 'width=900,height=650');
+            printWin.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>ISO 14971 Certificate - Biosensors Interventional Technologies</title>
+                    <script src="https://cdn.tailwindcss.com"><\/script>
+                    <style>
+                        body { font-family: 'Inter', sans-serif; background: white; padding: 20px; }
+                    </style>
+                </head>
+                <body class="flex items-center justify-center min-h-screen">
+                    ${certHTML}
+                    <script>
+                        window.onload = function() {
+                            setTimeout(function() { window.print(); }, 500);
+                        }
+                    <\/script>
+                </body>
+                </html>
+            `);
+            printWin.document.close();
+        }
+    </script>
+</body>
+</html>
